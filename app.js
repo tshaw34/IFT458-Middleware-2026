@@ -1,3 +1,3 @@
-// Student Name: Jared Esquibel
-// Student ID: 1227317665
-// Date: 03/22/2026
+// Student Name: Trevor Shaw
+// Student ID: 1234765742
+// Date: 10/24/2026
