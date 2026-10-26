@@ -1,9 +1,11 @@
-// I changed this comment: I dont know what to change for this file so I am gonna add my name to the comment. My name is Susan Arraez :)
 
 
 // Manages screen navigation and user authentication state
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Platform } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Platform, ActivityIndicator } from 'react-native';
 
 // Import all screen components
 import HomeScreen from './screens/HomeScreen';
@@ -19,7 +21,7 @@ import { getSavedUser } from './utils/api';
 
 
 
-const loggermiddleware = require('./loggerMiddleware'); //Bryce Pratt
+const loggermiddleware = require('./loggerMiddleware'); 
 
 // Import AuthContext
 import { AuthProvider, useAuth } from './AuthContext';
@@ -126,13 +128,13 @@ const AppNavigator = () => {
     useEffect(() => {
         const checkSavedUser = async () => {
             try {
-                loggermiddleware('Checking saved user');
+                console.log('Checking saved user');
                 const savedData = await getSavedUser();
                 if (savedData) {
                     login(savedData.user, savedData.token);
                 }
             } catch (error) {
-                loggermiddleware('Error checking saved user:', error);
+                console.log('Error checking saved user:', error);
                 setAuthError('Failed to load saved session');
             } finally {
                 setLoading(false);
@@ -180,3 +182,27 @@ export default function App() {
         </AuthProvider>
     );
 }
+
+
+const styles = StyleSheet.create({
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        padding: 20,
+    },
+    errorText: {
+        color: '#dc3545',
+        fontSize: 16,
+        marginBottom: 12,
+        textAlign: 'center',
+    },
+    bottomNav: {
+        backgroundColor: '#0d6efd',
+        borderTopWidth: 0,
+        height: 60,
+        paddingBottom: 8,
+        paddingTop: 8,
+    },
+});
